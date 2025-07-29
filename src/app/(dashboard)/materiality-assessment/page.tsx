@@ -612,12 +612,9 @@ function MaterialityAnalysisResults({ data }: { data: MaterialityAnalysisRespons
           </div>
           
           <div className="mt-4 text-sm text-gray-600">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div><strong>회사:</strong> {data.analysis_metadata?.company_name || '정보 없음'}</div>
               <div><strong>분석 기간:</strong> {data.news_analysis_summary?.analysis_period || '정보 없음'}</div>
-              <div><strong>신뢰도:</strong> <span className={
-                data.confidence_assessment?.confidence_grade === '매우 낮음' ? 'text-red-600 font-medium' : 'text-gray-600'
-              }>{data.confidence_assessment?.confidence_grade || '정보 없음'}</span></div>
             </div>
             <div className="text-xs text-gray-500 mt-2">{data.analysis_metadata?.disclaimer || ''}</div>
           </div>
@@ -713,46 +710,7 @@ function MaterialityAnalysisResults({ data }: { data: MaterialityAnalysisRespons
         </CardContent>
       </Card>
 
-      {/* 신뢰도 평가 */}
-      {data.confidence_assessment && (
-        <Card className="border-orange-200">
-          <CardHeader>
-            <CardTitle className="text-orange-800">신뢰도 평가</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-orange-50 p-4 rounded-lg">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-orange-600">
-                    {Math.round(data.confidence_assessment.overall_confidence_score * 100)}%
-                  </div>
-                  <div className="text-sm text-orange-800">전체 신뢰도</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-orange-600">
-                    {data.confidence_assessment.confidence_factors.article_count}
-                  </div>
-                  <div className="text-sm text-orange-800">분석 기사 수</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-orange-600">
-                    {data.confidence_assessment.confidence_grade}
-                  </div>
-                  <div className="text-sm text-orange-800">신뢰도 등급</div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h5 className="font-medium text-orange-800">개선 권고사항:</h5>
-                <ul className="list-disc list-inside space-y-1 text-sm text-orange-700">
-                  {(data.confidence_assessment.recommendations || []).map((recommendation, index) => (
-                    <li key={index}>{recommendation}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+
 
       {/* 다음 단계 안내 */}
       <Card className="border-green-200 bg-green-50">
@@ -2084,7 +2042,7 @@ function ResponseAnalysisStep({ selectedGroups, onBack }: ResponseAnalysisStepPr
               <h5 className="font-medium mb-2">적용 방식</h5>
               <ul className="space-y-1 text-gray-600">
                 <li>• 그룹별 평균 점수 계산</li>
-                <li>• 응답률 기반 신뢰도 가중치</li>
+                <li>• 응답률 기반 가중치 적용</li>
                 <li>• VIP 응답자 1.2x 가중치</li>
                 <li>• 최종 점수 1-5점 범위로 정규화</li>
               </ul>
