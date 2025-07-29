@@ -1,9 +1,11 @@
 import { CompanyCombinedResponse, CompanyCombinedParams, SUPPORTED_COMPANIES } from '@/shared/types/api';
 
 // 회사별 조합 검색 API 엔드포인트
-const API_BASE_URL = process.env.NEXT_PUBLIC_SASB_API_URL 
-  ? `${process.env.NEXT_PUBLIC_SASB_API_URL}/workers/results`
-  : 'https://sasb-production.up.railway.app/api/v1/workers/results';
+const API_BASE_URL = `${process.env.NEXT_PUBLIC_SASB_API_URL}/workers/results`;
+
+if (!process.env.NEXT_PUBLIC_SASB_API_URL) {
+  throw new Error('NEXT_PUBLIC_SASB_API_URL 환경 변수가 설정되지 않았습니다.');
+}
 
 export const fetchCompanyCombined = async (params: CompanyCombinedParams): Promise<CompanyCombinedResponse> => {
   const { company, max_results = 100 } = params;
