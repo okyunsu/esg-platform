@@ -26,7 +26,7 @@ export default function DashboardLayout({
         <Header />
         
         {/* 페이지 콘텐츠 - 패딩 제거하여 위젯들이 전체 너비 사용 */}
-        <main className="flex-1 overflow-y-auto bg-muted/10">
+        <main className="flex-1 overflow-y-auto bg-background">
           {children}
         </main>
       </div>

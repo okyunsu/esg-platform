@@ -139,8 +139,8 @@ export default function ProjectDetailWorkflow({
         <CardContent className="space-y-8">
           
           {/* Level 1: 상위 단계 진행 표시 */}
-          <div className="bg-gray-50 rounded-lg p-6">
-            <h4 className="font-medium text-gray-900 mb-4 text-center">프로젝트 전체 진행 상황</h4>
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+            <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-4 text-center">프로젝트 전체 진행 상황</h4>
             <div className="flex items-center justify-between">
               {(['materialityAssessment', 'reportWriting', 'reviewApproval'] as const).map((stageKey, index) => {
                 const stage = project.stages[stageKey];
@@ -158,7 +158,7 @@ export default function ProjectDetailWorkflow({
                           ? 'bg-green-500 text-white' 
                           : isActive 
                             ? 'bg-blue-500 text-white'
-                            : 'bg-gray-300 text-gray-600'
+                            : 'bg-gray-300 dark:bg-gray-600 text-gray-600 dark:text-gray-300'
                         }
                       `}>
                         {isCompleted ? (
@@ -171,14 +171,14 @@ export default function ProjectDetailWorkflow({
                       {/* 상위 단계 정보 */}
                       <div className="mt-3 text-center min-w-[140px]">
                         <p className={`text-sm font-medium ${
-                          isActive ? 'text-blue-700' : 
-                          isCompleted ? 'text-green-700' : 
-                          'text-gray-500'
+                          isActive ? 'text-blue-700 dark:text-blue-400' : 
+                          isCompleted ? 'text-green-700 dark:text-green-400' : 
+                          'text-gray-500 dark:text-gray-400'
                         }`}>
                           {stageInfo.shortName}
                         </p>
                         {(isActive || isCompleted) && (
-                          <p className="text-xs text-gray-600 mt-1">
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                             {stage.progress}% 완료
                           </p>
                         )}
@@ -189,7 +189,7 @@ export default function ProjectDetailWorkflow({
                     {index < 2 && (
                       <div className={`
                         flex-1 h-0.5 mx-6 mt-[-30px]
-                        ${isCompleted ? 'bg-green-500' : 'bg-gray-300'}
+                        ${isCompleted ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'}
                       `} />
                     )}
                   </div>
@@ -199,13 +199,13 @@ export default function ProjectDetailWorkflow({
           </div>
 
           {/* Level 2: 현재 활성 단계의 세부 워크플로우 */}
-          <div className="border-l-4 border-blue-500 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-r-lg p-6">
-            <h4 className="font-semibold text-blue-900 mb-6 text-lg">
+          <div className="border-l-4 border-blue-500 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-r-lg p-6">
+            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-6 text-lg">
               📋 {currentStageInfo.name} 세부 단계
             </h4>
             
             {/* 세부 스텝 Horizontal Stepper */}
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-blue-200">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-blue-200 dark:border-blue-700">
               <div className="flex items-center justify-between mb-6">
                 {currentStageData.steps.map((step, index) => (
                   <div key={step.id} className="flex items-center flex-1">
@@ -217,7 +217,7 @@ export default function ProjectDetailWorkflow({
                           ? 'bg-green-500 border-green-500 text-white' 
                           : step.status === 'in_progress' 
                             ? 'bg-blue-500 border-blue-500 text-white animate-pulse'
-                            : 'bg-white border-gray-300 text-gray-600'
+                            : 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300'
                         }
                       `}>
                         {step.status === 'completed' ? (
@@ -232,21 +232,21 @@ export default function ProjectDetailWorkflow({
                       {/* 세부 스텝 정보 */}
                       <div className="mt-2 text-center min-w-[120px]">
                         <p className={`text-xs font-medium ${
-                          step.status === 'in_progress' ? 'text-blue-700' : 
-                          step.status === 'completed' ? 'text-green-700' : 
-                          'text-gray-500'
+                          step.status === 'in_progress' ? 'text-blue-700 dark:text-blue-400' : 
+                          step.status === 'completed' ? 'text-green-700 dark:text-green-400' : 
+                          'text-gray-500 dark:text-gray-400'
                         }`}>
                           Step {index + 1}
                         </p>
                         <p className={`text-xs leading-tight mt-1 ${
-                          step.status === 'in_progress' ? 'text-blue-600' : 
-                          step.status === 'completed' ? 'text-green-600' : 
-                          'text-gray-400'
+                          step.status === 'in_progress' ? 'text-blue-600 dark:text-blue-300' : 
+                          step.status === 'completed' ? 'text-green-600 dark:text-green-300' : 
+                          'text-gray-400 dark:text-gray-500'
                         }`}>
                           {step.name}
                         </p>
                         {step.status !== 'pending' && (
-                          <p className="text-xs font-semibold mt-1 text-gray-700">
+                          <p className="text-xs font-semibold mt-1 text-gray-700 dark:text-gray-300">
                             {step.progress}%
                           </p>
                         )}
@@ -257,7 +257,7 @@ export default function ProjectDetailWorkflow({
                     {index < currentStageData.steps.length - 1 && (
                       <div className={`
                         flex-1 h-0.5 mx-4 mt-[-20px]
-                        ${step.status === 'completed' ? 'bg-green-500' : 'bg-gray-300'}
+                        ${step.status === 'completed' ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'}
                       `} />
                     )}
                   </div>
@@ -269,21 +269,21 @@ export default function ProjectDetailWorkflow({
                 const currentStep = currentStageData.steps[currentStageData.currentStepIndex];
                 if (!currentStep || currentStep.status === 'pending') {
                   return (
-                    <div className="text-center text-gray-500 py-6">
+                    <div className="text-center text-gray-500 dark:text-gray-400 py-6">
                       아직 시작되지 않은 단계입니다.
                     </div>
                   );
                 }
 
                 return (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
-                        <h5 className="font-semibold text-blue-900 mb-2 flex items-center">
+                        <h5 className="font-semibold text-blue-900 dark:text-blue-100 mb-2 flex items-center">
                           <Target className="h-5 w-5 mr-2" />
                           현재 작업: {currentStep.name}
                         </h5>
-                        <p className="text-blue-800 text-sm mb-4 leading-relaxed">
+                        <p className="text-blue-800 dark:text-blue-200 text-sm mb-4 leading-relaxed">
                           {currentStep.description}
                         </p>
                         
