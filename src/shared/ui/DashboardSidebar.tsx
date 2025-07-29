@@ -34,10 +34,10 @@ export function DashboardSidebar() {
     : navigation;
 
   return (
-    <div className="flex h-full w-64 flex-col bg-gray-50">
+    <div className="flex h-full w-64 flex-col bg-gray-50 dark:bg-gray-900">
       {/* 로고 영역 */}
-      <div className="flex h-16 flex-shrink-0 items-center border-b border-gray-200 px-4">
-        <h1 className="text-xl font-bold text-gray-900">ESG Platform</h1>
+      <div className="flex h-16 flex-shrink-0 items-center border-b border-gray-200 dark:border-gray-700 px-4">
+        <h1 className="text-xl font-bold text-gray-900 dark:text-white">ESG Platform</h1>
       </div>
 
       {/* 네비게이션 메뉴 */}
@@ -51,21 +51,23 @@ export function DashboardSidebar() {
               className={cn(
                 'group flex items-center rounded-md px-2 py-2 text-sm font-medium',
                 isActive
-                  ? 'bg-blue-100 text-blue-900'
-                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                  ? 'bg-blue-100 dark:bg-blue-900 text-blue-900 dark:text-blue-100'
+                  : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
               )}
             >
               <item.icon
                 className={cn(
                   'mr-3 h-5 w-5 flex-shrink-0',
-                  isActive ? 'text-blue-500' : 'text-gray-400 group-hover:text-gray-500'
+                  isActive 
+                    ? 'text-blue-500 dark:text-blue-400' 
+                    : 'text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-300'
                 )}
                 aria-hidden="true"
               />
               {item.name}
               {/* 개발환경 전용 메뉴 표시 */}
               {isDevelopment && item.name === 'API 테스트' && (
-                <span className="ml-auto text-xs text-orange-500 font-medium">DEV</span>
+                <span className="ml-auto text-xs text-orange-500 dark:text-orange-400 font-medium">DEV</span>
               )}
             </Link>
           );
@@ -73,11 +75,11 @@ export function DashboardSidebar() {
       </nav>
 
       {/* 하단 정보 */}
-      <div className="flex-shrink-0 border-t border-gray-200 p-4">
-        <div className="text-xs text-gray-500">
+      <div className="flex-shrink-0 border-t border-gray-200 dark:border-gray-700 p-4">
+        <div className="text-xs text-gray-500 dark:text-gray-400">
           <p>ESG Platform v1.0</p>
           {isDevelopment && (
-            <p className="mt-1 text-orange-500 font-medium">개발 환경</p>
+            <p className="mt-1 text-orange-500 dark:text-orange-400 font-medium">개발 환경</p>
           )}
         </div>
       </div>
