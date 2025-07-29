@@ -79,7 +79,7 @@ export default function ProjectDetailWorkflow({
     return (
       <Card className="w-full max-w-5xl">
         <CardContent className="p-6">
-          <div className="text-center text-gray-500">
+          <div className="text-center text-gray-500 dark:text-gray-400">
             프로젝트를 선택해주세요.
           </div>
         </CardContent>
@@ -104,14 +104,14 @@ export default function ProjectDetailWorkflow({
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-xl font-bold text-gray-900">
+              <CardTitle className="text-xl font-bold text-gray-900 dark:text-gray-100">
                 {project.companyName} - 지속가능성 보고서 프로젝트
               </CardTitle>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {project.industry}
               </p>
             </div>
-            <div className="flex items-center space-x-4 text-sm text-gray-600">
+            <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex items-center">
                 <Calendar className="h-4 w-4 mr-1" />
                 마감: {new Date(project.deadline).toLocaleDateString('ko-KR')}

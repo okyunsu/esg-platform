@@ -16,17 +16,17 @@ interface ProjectPipelineProps {
   onProjectSelect?: (projectId: string) => void;
 }
 
-// 리스크 레벨에 따른 배지 스타일
+// 리스크 레벨에 따른 배지 스타일 (다크모드 대응)
 const getRiskBadgeVariant = (riskLevel: 'low' | 'medium' | 'high') => {
   switch (riskLevel) {
     case 'low':
-      return 'text-green-700 bg-green-50 border-green-200';
+      return 'text-green-700 bg-green-50 border-green-200 dark:text-green-400 dark:bg-green-950 dark:border-green-800';
     case 'medium':
-      return 'text-yellow-700 bg-yellow-50 border-yellow-200';
+      return 'text-yellow-700 bg-yellow-50 border-yellow-200 dark:text-yellow-400 dark:bg-yellow-950 dark:border-yellow-800';
     case 'high':
-      return 'text-red-700 bg-red-50 border-red-200';
+      return 'text-red-700 bg-red-50 border-red-200 dark:text-red-400 dark:bg-red-950 dark:border-red-800';
     default:
-      return 'text-gray-700 bg-gray-50 border-gray-200';
+      return 'text-gray-700 bg-gray-50 border-gray-200 dark:text-gray-400 dark:bg-gray-950 dark:border-gray-800';
   }
 };
 
@@ -65,7 +65,7 @@ const StageProgress = ({
     <div className="flex items-center space-x-2">
       <div 
         className={cn(
-          "w-16 h-2 bg-gray-200 rounded-full overflow-hidden cursor-pointer hover:opacity-80 transition-opacity",
+          "w-16 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer hover:opacity-80 transition-opacity",
           onClick && "hover:scale-105 transform transition-transform"
         )}
         onClick={onClick}
@@ -75,7 +75,7 @@ const StageProgress = ({
           style={{ width: `${stage.progress}%` }}
         />
       </div>
-      <span className="text-xs text-gray-600 min-w-[30px]">
+      <span className="text-xs text-gray-600 dark:text-gray-400 min-w-[30px]">
         {stage.progress}%
       </span>
     </div>
@@ -159,7 +159,7 @@ export function WorkflowOverview({
       
       <CardContent className="p-0">
         {/* 테이블 헤더 */}
-        <div className="grid grid-cols-6 gap-4 p-4 bg-gray-50 border-b text-sm font-medium text-gray-600">
+        <div className="grid grid-cols-6 gap-4 p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-600 dark:text-gray-300">
           <div>기업명</div>
           <div className="text-center">이슈 중대성 평가</div>
           <div className="text-center">보고서 작성</div>
@@ -169,7 +169,7 @@ export function WorkflowOverview({
         </div>
 
         {/* 테이블 바디 */}
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-gray-100 dark:divide-gray-700">
           {sortedPipelines.map((pipeline) => {
             const deadline = new Date(pipeline.deadline);
             const today = new Date();
@@ -183,20 +183,20 @@ export function WorkflowOverview({
                 className={cn(
                   "grid grid-cols-6 gap-4 p-4 cursor-pointer transition-colors",
                   isSelected 
-                    ? "bg-blue-50 border-l-4 border-l-blue-500" 
-                    : "hover:bg-gray-50",
-                  isUrgent && !isSelected && "bg-red-25"
+                    ? "bg-blue-50 dark:bg-blue-950 border-l-4 border-l-blue-500" 
+                    : "hover:bg-gray-50 dark:hover:bg-gray-800",
+                  isUrgent && !isSelected && "bg-red-25 dark:bg-red-950"
                 )}
                 onClick={() => onProjectSelect?.(pipeline.id)}
               >
                 {/* 기업명 */}
                 <div className="flex flex-col">
-                  <span className="font-medium text-gray-900">
+                  <span className="font-medium text-gray-900 dark:text-gray-100">
                     {pipeline.companyName}
                   </span>
-                  <div className="flex items-center text-xs text-gray-500 mt-1">
+                  <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
                     <Clock className="h-3 w-3 mr-1" />
-                    <span className={isUrgent ? 'text-red-600 font-medium' : ''}>
+                    <span className={isUrgent ? 'text-red-600 dark:text-red-400 font-medium' : ''}>
                       {formatDate(deadline, 'MM월 dd일')}
                       {isUrgent && ` (${diffDays}일 남음)`}
                     </span>
@@ -265,7 +265,7 @@ export function WorkflowOverview({
         </div>
 
         {sortedPipelines.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-gray-500 dark:text-gray-400">
             진행 중인 프로젝트가 없습니다.
           </div>
         )}
